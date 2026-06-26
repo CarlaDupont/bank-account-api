@@ -1,0 +1,4 @@
+fr\carla\bank\bdd\RunCucumberTest.class
+fr\carla\bank\bdd\BankAccountStepDefinitions.class
+fr\carla\bank\integration\BankAccountIntegrationTest.class
+fr\carla\bank\service\BankAccountServiceTest.class

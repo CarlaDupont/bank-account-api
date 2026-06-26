@@ -1,0 +1,15 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+bank-account-api,fr.carla.bank.repository,InMemoryBankAccountRepository,7,33,0,0,1,8,1,5,1,5
+bank-account-api,fr.carla.bank.model,BankAccount,15,35,0,0,8,12,4,6,4,6
+bank-account-api,fr.carla.bank.dto,CreateAccountRequest,0,9,0,0,0,1,0,1,0,1
+bank-account-api,fr.carla.bank.dto,AmountRequest,0,6,0,0,0,1,0,1,0,1
+bank-account-api,fr.carla.bank.dto,TransferRequest,0,12,0,0,0,1,0,1,0,1
+bank-account-api,fr.carla.bank,BankAccountApiApplication,5,3,0,0,2,1,1,1,1,1
+bank-account-api,fr.carla.bank.service,BankAccountService,5,139,2,10,1,35,2,13,0,9
+bank-account-api,fr.carla.bank.exception,InvalidAmountException,0,4,0,0,0,2,0,1,0,1
+bank-account-api,fr.carla.bank.exception,InsufficientFundsException,0,5,0,0,0,2,0,1,0,1
+bank-account-api,fr.carla.bank.exception,AccountNotFoundException,0,5,0,0,0,2,0,1,0,1
+bank-account-api,fr.carla.bank.exception,InvalidTransferException,4,0,0,0,2,0,1,0,1,0
+bank-account-api,fr.carla.bank.exception,AccountAlreadyExistsException,0,5,0,0,0,2,0,1,0,1
+bank-account-api,fr.carla.bank.controller,BankAccountController,4,43,0,0,1,16,1,6,1,6
+bank-account-api,fr.carla.bank.controller,ApiExceptionHandler,28,8,0,0,10,2,4,2,4,2

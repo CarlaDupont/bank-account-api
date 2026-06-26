@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ApiExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bank-account-api</a> &gt; <a href="index.source.html" class="el_package">fr.carla.bank.controller</a> &gt; <span class="el_source">ApiExceptionHandler.java</span></div><h1>ApiExceptionHandler.java</h1><pre class="source lang-java linenums">package fr.carla.bank.controller;
+
+import fr.carla.bank.exception.AccountAlreadyExistsException;
+import fr.carla.bank.exception.AccountNotFoundException;
+import fr.carla.bank.exception.InsufficientFundsException;
+import fr.carla.bank.exception.InvalidAmountException;
+import fr.carla.bank.exception.InvalidTransferException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestControllerAdvice
+<span class="fc" id="L15">public class ApiExceptionHandler {</span>
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map&lt;String, String&gt; handleValidation(
+            MethodArgumentNotValidException exception
+    ) {
+<span class="nc" id="L22">        String message = exception</span>
+<span class="nc" id="L23">                .getBindingResult()</span>
+<span class="nc" id="L24">                .getFieldErrors()</span>
+<span class="nc" id="L25">                .stream()</span>
+<span class="nc" id="L26">                .findFirst()</span>
+<span class="nc" id="L27">                .map(error -&gt; error.getDefaultMessage())</span>
+<span class="nc" id="L28">                .orElse(&quot;Invalid request&quot;);</span>
+
+<span class="nc" id="L30">        return Map.of(&quot;error&quot;, message);</span>
+    }
+
+    @ExceptionHandler({
+            InvalidAmountException.class,
+            InvalidTransferException.class
+    })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map&lt;String, String&gt; handleBadRequest(
+            RuntimeException exception
+    ) {
+<span class="nc" id="L41">        return Map.of(&quot;error&quot;, exception.getMessage());</span>
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map&lt;String, String&gt; handleNotFound(
+            AccountNotFoundException exception
+    ) {
+<span class="nc" id="L49">        return Map.of(&quot;error&quot;, exception.getMessage());</span>
+    }
+
+    @ExceptionHandler({
+            AccountAlreadyExistsException.class,
+            InsufficientFundsException.class
+    })
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public Map&lt;String, String&gt; handleConflict(
+            RuntimeException exception
+    ) {
+<span class="fc" id="L60">        return Map.of(&quot;error&quot;, exception.getMessage());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

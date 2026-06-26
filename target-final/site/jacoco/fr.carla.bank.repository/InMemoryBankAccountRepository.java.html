@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InMemoryBankAccountRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bank-account-api</a> &gt; <a href="index.source.html" class="el_package">fr.carla.bank.repository</a> &gt; <span class="el_source">InMemoryBankAccountRepository.java</span></div><h1>InMemoryBankAccountRepository.java</h1><pre class="source lang-java linenums">package fr.carla.bank.repository;
+
+import fr.carla.bank.model.BankAccount;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+
+@Repository
+<span class="fc" id="L12">public class InMemoryBankAccountRepository</span>
+        implements BankAccountRepository {
+
+<span class="fc" id="L15">    private final ConcurrentHashMap&lt;String, BankAccount&gt; accounts =</span>
+            new ConcurrentHashMap&lt;&gt;();
+
+    @Override
+    public BankAccount save(BankAccount account) {
+<span class="fc" id="L20">        accounts.put(account.getNumber(), account);</span>
+<span class="fc" id="L21">        return account;</span>
+    }
+
+    @Override
+    public Optional&lt;BankAccount&gt; findByNumber(String number) {
+<span class="fc" id="L26">        return Optional.ofNullable(accounts.get(number));</span>
+    }
+
+    @Override
+    public boolean existsByNumber(String number) {
+<span class="fc" id="L31">        return accounts.containsKey(number);</span>
+    }
+
+    @Override
+    public List&lt;BankAccount&gt; findAll() {
+<span class="nc" id="L36">        return new ArrayList&lt;&gt;(accounts.values());</span>
+    }
+
+    @Override
+    public void clear() {
+<span class="fc" id="L41">        accounts.clear();</span>
+<span class="fc" id="L42">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
